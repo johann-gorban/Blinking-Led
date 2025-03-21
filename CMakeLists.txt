@@ -6,21 +6,21 @@ set(CMAKE_C_COMPILER arm-none-eabi-gcc)
 set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
 
 # Flags
-set(MCU cortex-m7)
-set(FPU -mfpu=fpv5-sp-d16 -mfloat-abi=hard)
-set(ARCH -mthumb -mcpu=${MCU} ${FPU})
+set(MCU "cortex-m7")
+set(FPU "-mfpu=fpv5-sp-d16 -mfloat-abi=hard")
+set(ARCH "-mthumb -mcpu=${MCU} ${FPU}")
 
 set(CMAKE_C_FLAGS "${ARCH} -Os -g -std=gnu11 -Wall -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSTM32F7 -DSTM32F746xx")
 set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS} -x assembler-with-cpp")
 
 # Libopencm3
-set(LIBOPENCM3_PATH ../libopencm3)
+set(LIBOPENCM3_PATH ./libopencm3)
 include_directories(${LIBOPENCM3_PATH}/include)
 link_directories(${LIBOPENCM3_PATH}/lib)
 
 # Linker
-set(LD_SCRIPT ${LIBOPENCM3_PATH}/lib/stm32/f7/stm32f7x6.ld)
+set(LD_SCRIPT ../proj.ld)
 set(CMAKE_EXE_LINKER_FLAGS "${ARCH} -Wl,--gc-sections -T${LD_SCRIPT}")
 
 # Sources
